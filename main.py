@@ -9,13 +9,14 @@ import time
 from machine import Pin
 import _thread
 from dht import DHT
+import HCSR04 as dist
 
 
 th = DHT(Pin('P23', mode=Pin.OPEN_DRAIN), 0)
 time.sleep(10)
 
 
-def send_env_data():
+def get_data():
     while True:
         result = th.read()
         while not result.is_valid():
@@ -23,9 +24,11 @@ def send_env_data():
             result = th.read()
         print('Temp:', result.temperature)
         print('RH:', result.humidity)
+        distance = dist.distance_median()
+        print('Distance:', abs(distance), 'cm')
 
 
         time.sleep(10)
 
 
-send_env_data()
+get_data()
