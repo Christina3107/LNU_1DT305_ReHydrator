@@ -53,7 +53,7 @@ def distance_median():
     # initialise the list
     distance_samples = []
     # take 10 samples and append them into the list
-    for count in range(10):
+    for count in range(20):
         distance_samples.append(distance_measure())
     # sort the list
     distance_samples = sorted(distance_samples)
