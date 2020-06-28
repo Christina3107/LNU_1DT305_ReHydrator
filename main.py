@@ -1,4 +1,4 @@
-print("Hello main")
+print("Welcome to ReHydrator")
 ## get_volume
 ## get_temperature
 ## get_humidity
@@ -7,7 +7,6 @@ print("Hello main")
 # my first project ..
 import time
 from machine import Pin
-import _thread
 from dht import DHT
 import HCSR04 as dist
 
