@@ -4,7 +4,6 @@ print("Welcome to ReHydrator")
 ## get_humidity
 ## if temp > ...
 ##
-# my first project ..
 import time
 from machine import Pin
 from dht import DHT
@@ -16,7 +15,7 @@ th = DHT(Pin('P23', mode=Pin.OPEN_DRAIN), 0)
 time.sleep(10)
 
 
-def get_data():
+def collect_sensor_data():
     while True:
         result = th.read()
         temp = result.temperature
@@ -28,10 +27,10 @@ def get_data():
         print('RH:', RH)
         distance = dist.distance_median()
         print('Distance:', abs(distance), 'cm')
-        ubidots.post_var("ReHydrator",  temp, RH, abs(distance))
+        #ubidots.post_var("ReHydrator",  temp, RH, abs(distance))
 
 
         time.sleep(30)
 
 
-get_data()
+collect_sensor_data()
