@@ -14,6 +14,7 @@ import send_data as ubidots
 th = DHT(Pin('P23', mode=Pin.OPEN_DRAIN), 0)
 time.sleep(10)
 
+dist_array = []
 
 def collect_sensor_data():
     while True:
@@ -26,6 +27,8 @@ def collect_sensor_data():
         print('Temp:', temp)
         print('RH:', RH)
         distance = dist.distance_median()
+        dist_array.append(distance)
+        print(dist_array)
         print('Distance:', abs(distance), 'cm')
         #ubidots.post_var("ReHydrator",  temp, RH, abs(distance))
 
