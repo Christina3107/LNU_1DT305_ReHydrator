@@ -9,45 +9,64 @@ from machine import Pin
 from dht import DHT
 import HCSR04 as dist
 
-dist_array = []
+#dist_array = []
 
 def calibrate():
     #measure initial distance, get total volume, set initial distance --> first array value? get initial volume
+    distance = get_distance()
+    initial_volume = get_current_volume(distance)
+    water_volumes.append(initial_volume)
+    print("ReHydrator calibrated")
+
+def get_distance():
+    #returns distance between sensor and water surface
     distance = dist.distance_median()
-    dist_array.append(distance)
-    print(dist_array)
     print('Distance:', abs(distance), 'cm')
-    return distance
+    return abs(distance)
 
 def get_volume(distance):
     height = 29.3 - abs(distance)
-    print(height)
+    print('Height: ', height, 'cm')
     current_volume = round((3.14 * height * 8.4**2), 2)
+    print('Current volume: ', current_volume, 'ml')
     return current_volume
 
 def get_tank_status(current_volume):
     #return percentage of total volume
     current_percentage = current_volume / 4433.42 * 100
-    print(round(current_percentage, 1))
+    print('Current percentage: ', round(current_percentage, 1), '%')
     if current_percentage >= 100:
             return 100
     else:
         return round(current_percentage, 1)
 
-def get_temperature():
-    pass
+def get_temp_rh():
+    th = DHT(Pin('P23', mode=Pin.OPEN_DRAIN), 0)
+    time.sleep(2)
+    result = th.read()
+    while not result.is_valid():
+        time.sleep(5)
+        result = th.read()
+    print('Temperature: ', result.temperature, '°C')
+    print('RH: ', result.humidity, '%')
+    return result
 
-def get_humidity():
-    pass
+def get_water_quantity(initial_volume, current_volume):
+    difference = initial_volume - current_volume
+    print('Difference: ', difference, 'ml')
+    if difference <= 0:
+        return 0
+    else:
+        return difference
 
-def get_distance():
-    #returns distance from sensor to water surface
-    pass
+def get_RDA_percentage(quantities_sum):
+    RDA_percentage = quantities_sum / 2500 * 100
+    print('RDA percentage: ', RDA_percentage, '%')
+    if RDA_percentage >= 100:
+        return 100
+    else: return RDA_percentage
 
-def get_water_amount(initial_volume, current_volume):
-    #returns amount of water that has been consumed since last measurement
-    #if distance2 < distance1 --> return 0, sätt utgångsvärde till distance 2
-    pass
 
-distance = calibrate()
-get_tank_status(distance)
+
+#distance = calibrate()
+#get_tank_status(distance)
