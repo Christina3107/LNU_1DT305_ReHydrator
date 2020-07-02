@@ -14,9 +14,9 @@ import HCSR04 as dist
 def calibrate():
     #measure initial distance, get total volume, set initial distance --> first array value? get initial volume
     distance = get_distance()
-    initial_volume = get_current_volume(distance)
-    water_volumes.append(initial_volume)
+    initial_volume = get_volume(distance)
     print("ReHydrator calibrated")
+    return initial_volume
 
 def get_distance():
     #returns distance between sensor and water surface
@@ -64,7 +64,8 @@ def get_RDA_percentage(quantities_sum):
     print('RDA percentage: ', RDA_percentage, '%')
     if RDA_percentage >= 100:
         return 100
-    else: return RDA_percentage
+    else:
+        return RDA_percentage
 
 
 

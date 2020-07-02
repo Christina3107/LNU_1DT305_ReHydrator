@@ -19,14 +19,14 @@ def collect_sensor_data():
         temp = th.temperature
         RH = th.humidity
         distance = rehydrator.get_distance()
-        current_volume = rehydrator.get_current_volume(distance)
+        current_volume = rehydrator.get_volume(distance)
         water_volumes.append(current_volume)
         tank_status = rehydrator.get_tank_status(current_volume)
         #if i = 0:
         #    initial_volume = current_volume
         #else:
-        print(water_volumes, water_volumes[i-1])
-        initial_volume = water_volumes[i-1]
+        print(water_volumes, water_volumes[i])
+        initial_volume = water_volumes[i]
         water_quantity = rehydrator.get_water_quantity(initial_volume, current_volume)
         water_quantities.append(water_quantity)
         print(water_quantities)
@@ -34,16 +34,16 @@ def collect_sensor_data():
         print(quantities_sum)
         RDA_percentage = rehydrator.get_RDA_percentage(quantities_sum)
         if water_quantity < 170:
-            dehydration_warning = True
+            dehydration_warning = 0
         else:
-            dehydration_warning = False
-        if temp >= 25:
-            temp_warning = True
+            dehydration_warning = 1
+        if temp < 25:
+            temp_warning = 0
         else:
-            temp_warning = False
-        print(temp, RH, tank_status, RDA_percentage, water_quantity, dehydration_warning, temp_warning)
-        #ubidots.post_var("ReHydrator",  temp, RH, tank_status, RDA_percentage, water_quantity, dehydration_warning, temp_warning)
-        time.sleep(60)
+            temp_warning = 1
+        print(temp, RH, tank_status, round(RDA_percentage, 2), water_quantity, dehydration_warning, temp_warning)
+        ubidots.post_var("ReHydrator",  temp, RH, tank_status, RDA_percentage, water_quantity, dehydration_warning, temp_warning)
+        time.sleep(3600)
 
 
 
@@ -66,5 +66,6 @@ def collect_sensor_data():
 
         #time.sleep(30)
 
-rehydrator.calibrate()
+initial_volume = rehydrator.calibrate()
+water_volumes.append(initial_volume)
 collect_sensor_data()
