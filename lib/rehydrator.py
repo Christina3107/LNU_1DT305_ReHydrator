@@ -9,8 +9,6 @@ from machine import Pin
 from dht import DHT
 import HCSR04 as dist
 
-#dist_array = []
-
 def calibrate():
     #measure initial distance, get total volume, set initial distance --> first array value? get initial volume
     distance = get_distance()
@@ -66,8 +64,3 @@ def get_RDA_percentage(quantities_sum):
         return 100
     else:
         return RDA_percentage
-
-
-
-#distance = calibrate()
-#get_tank_status(distance)

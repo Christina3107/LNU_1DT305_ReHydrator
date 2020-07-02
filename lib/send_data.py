@@ -33,10 +33,3 @@ def post_var(device, value1, value2, value3, value4, value5, value6, value7):
             print("An error occurred trying to transmit data to Ubidots")
     except:
         print("An error occurred trying to transmit data to Ubidots")
-
-#
-#while True:
-#    fuel = 123 # Data values
-#    speed = 234 # Data values
-#    post_var("ReHydrator", fuel, 1, speed)
-#    time.sleep(DELAY)
