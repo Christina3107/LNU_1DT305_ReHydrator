@@ -1,0 +1,2 @@
+# LNU_1DT305_ReHydrator
+IoT project for the Applied IoT summer course at Linnaeus University. Prototype for a smart water monitor (ReHydrator) using a HC-SR04 ultrasonic distance sensor, a DHT-11 temperature and humidity sensor and a Pycom microcontroller. The main objective of the ReHydrator is to keep track of one’s water intake (especially during hot days) and warn you in case you have not drunk enough. Sensor data is sent to the Ubidots platform and visualized on a Dashboard.
