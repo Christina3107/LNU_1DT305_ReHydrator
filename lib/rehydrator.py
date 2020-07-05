@@ -10,28 +10,29 @@ from dht import DHT
 import HCSR04 as dist
 
 def calibrate():
-    #measure initial distance, get total volume, set initial distance --> first array value? get initial volume
+    #Function measuring the initial distance from sensor to water surface and returning the initial water quantity of the tank
     distance = get_distance()
     initial_volume = get_volume(distance)
     print("ReHydrator calibrated")
     return initial_volume
 
 def get_distance():
-    #returns distance between sensor and water surface
+    #Returns distance between sensor and water surface
     distance = dist.distance_median()
     print('Distance:', abs(distance), 'cm')
     return abs(distance)
 
 def get_volume(distance):
-    height = 29.3 - abs(distance)
+    #Returns current water volume
+    height = 29.3 - abs(distance) #must be adjusted if different tank is used
     print('Height: ', height, 'cm')
     current_volume = round((3.14 * height * 8.4**2), 2)
     print('Current volume: ', current_volume, 'ml')
     return current_volume
 
 def get_tank_status(current_volume):
-    #return percentage of total volume
-    current_percentage = current_volume / 4433.42 * 100
+    #Returns percentage of total volume, if the percentage (due to minor measurement errors) is greater than 100, 100 is returned
+    current_percentage = current_volume / 4433.42 * 100 #must be adjusted if different tank is used
     print('Current percentage: ', round(current_percentage, 1), '%')
     if current_percentage >= 100:
             return 100
@@ -39,6 +40,7 @@ def get_tank_status(current_volume):
         return round(current_percentage, 1)
 
 def get_temp_rh():
+    #Gets values from the DHT-11 sensor and returns the result
     th = DHT(Pin('P23', mode=Pin.OPEN_DRAIN), 0)
     time.sleep(2)
     result = th.read()
@@ -50,6 +52,7 @@ def get_temp_rh():
     return result
 
 def get_water_quantity(initial_volume, current_volume):
+    #Returns the current water quantity
     difference = initial_volume - current_volume
     print('Difference: ', difference, 'ml')
     if difference <= 0:
@@ -58,6 +61,7 @@ def get_water_quantity(initial_volume, current_volume):
         return difference
 
 def get_RDA_percentage(quantities_sum):
+    #Returns the percentage of the recommended daily amount of water (here: 2.5 liters, this might have to be adjusted to individual values) that has been consumed
     RDA_percentage = quantities_sum / 2500 * 100
     print('RDA percentage: ', RDA_percentage, '%')
     if RDA_percentage >= 100:
