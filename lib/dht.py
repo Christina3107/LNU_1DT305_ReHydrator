@@ -1,3 +1,4 @@
+#Library for the DHT-11 temperature and humidity sensor 
 import time
 from machine import enable_irq, disable_irq
 

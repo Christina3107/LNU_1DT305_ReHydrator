@@ -1,3 +1,4 @@
+#Module for sending data to the ubidots API
 from network import WLAN
 import urequests as requests
 import machine

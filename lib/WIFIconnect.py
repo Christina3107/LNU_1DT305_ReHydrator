@@ -1,3 +1,4 @@
+#Module for estabishing a WiFi connection
 from network import WLAN
 import keys
 import machine

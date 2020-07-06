@@ -1,3 +1,4 @@
+#Module containing functions for calculating various ReHydrator values
 #Tankinfo
 #diameter = 16,8cm
 #radius = 8,4cm

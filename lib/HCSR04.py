@@ -1,3 +1,4 @@
+#Library for the HC-SR04 ultrasonic distance sensor
 import utime
 import time
 import pycom

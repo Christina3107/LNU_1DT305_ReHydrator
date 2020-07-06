@@ -1,3 +1,4 @@
+#Library for sending HTTP-requests
 import usocket
 
 class Response:
