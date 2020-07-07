@@ -53,7 +53,7 @@ def get_temp_rh():
     return result
 
 def get_water_quantity(initial_volume, current_volume):
-    #Returns the current water quantity
+    #Returns the water quantity change since the last measurement
     difference = initial_volume - current_volume
     print('Difference: ', difference, 'ml')
     if difference <= 0:

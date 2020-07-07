@@ -9,11 +9,12 @@ water_volumes = []
 water_quantities = []
 
 def collect_sensor_data():
-    #Loop running 12 times (once every "active hour") once the program is started
+    #Loop running 12 times (once every "active hour") once the program is started, change this if you want to monitor more frequently or longer periods of time
 
     for i in range(12):
         print("Collecting sensor data")
         print("Measurement" , i+1, "of 12.")
+        #Show green light while sensor data is collected
         pycom.heartbeat(False)
         pycom.rgbled(0x00FF00)
         #Assigning variables by calling rehydrator-functions

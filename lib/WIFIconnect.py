@@ -7,6 +7,7 @@ import machine
 
 def connect_to_WIFI():
     print("Establishing Wifi connection")
+    #Show red light while establishing connection
     pycom.heartbeat(False)
     pycom.rgbled(0xFF0000)
     wlan = WLAN(mode=WLAN.STA)
@@ -16,6 +17,7 @@ def connect_to_WIFI():
 
     while not wlan.isconnected ():
         machine.idle()
+    #Show green light when Wifi connection is established
     pycom.rgbled(0x00FF00)
     print("Connected to Wifi\n")
     time.sleep(3)
