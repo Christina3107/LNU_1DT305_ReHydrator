@@ -55,6 +55,4 @@ def distance_median():
     distance_median = distance_samples[int(len(distance_samples)/2)]
     # apply the function to scale to volts
 
-    print(distance_samples)
-
     return distance_median
