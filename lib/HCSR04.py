@@ -41,7 +41,7 @@ def distance_measure():
     return distance
 
 
-# to reduce errors we take ten readings and use the median
+# to reduce errors we take thirty readings and use the median
 def distance_median():
 
     # initialise the list
